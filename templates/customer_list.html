@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Customer List{% endblock %}
+
+{% block content %}
+
+<!-- ALERT MESSAGE -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show"
+        role="alert"
+        data-alert="{{ message }}">
+        <span class="alert-text">{{ message }}</span>
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<h3 id="customerListTitle" class="mb-3">Customer List</h3>
+
+<!-- Search -->
+<form method="GET" action="/customers" class="mb-3">
+    <div class="input-group">
+        <input id="searchBox"
+               type="text"
+               name="search"
+               class="form-control"
+               placeholder="Search by name or mobile"
+               value="{{ search }}">
+        <button class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+<!-- Table -->
+<div class="table-responsive">
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th id="th_id">ID</th>
+            <th id="th_name">Name</th>
+            <th id="th_phone">Mobile</th>
+            <th id="th_action" class="text-center">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for c in customers %}
+        <tr>
+            <td>{{ c[0] }}</td>
+            <td>{{ c[1] }}</td>
+            <td>{{ c[2] }}</td>
+
+            <td class="text-center">
+                <div class="d-inline-flex gap-1">
+
+                    <a href="/view/{{ c[0] }}"
+                       class="btn btn-info btn-sm"
+                       title="View">
+                        👁️
+                    </a>
+
+                    <a href="/edit/{{ c[0] }}"
+                       class="btn btn-warning btn-sm"
+                       title="Edit">
+                        ✏️
+                    </a>
+
+                    <a href="/delete/{{ c[0] }}"
+                       onclick="return confirm('Delete customer?')"
+                       class="btn btn-danger btn-sm"
+                       title="Delete">
+                        🗑️
+                    </a>
+
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}

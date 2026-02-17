@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Customer Form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Language Script -->
+<script src="/static/lang.js"></script>
+</head>
+
+<body class="bg-light">
+
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <!-- Language Button -->
+            <button onclick="toggleLanguage()" class="btn btn-info btn-sm mb-2" id="langBtn">
+                मराठी
+            </button>
+
+            <div class="card shadow-sm p-4">
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                                  <div class="alert alert-{{ category }} alert-dismissible fade show"
+                                    role="alert"
+                                    data-alert="{{ message }}">
+                                   <span class="alert-text">{{ message }}</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+
+                <!-- Title -->
+                <h4 id="customerDetails" class="mb-3">Customer Details</h4>
+
+                <form method="POST">
+
+                    <!-- CUSTOMER INFO -->
+                    <h5 class="mt-2">Customer Info</h5>
+
+                    <div class="mb-2">
+                        <label id="lblName" class="form-label">Name</label>
+                        <input class="form-control" name="name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label id="lblPhone" class="form-label">Phone</label>
+                        <input class="form-control" name="phone" id="phone" type="tel"
+                        pattern="[0-9]{10}" maxlength="10" inputmode="numeric" 
+                        required
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    </div>
+
+                    <!-- SHIRT SECTION -->
+                    <h5 id="shirtTitle" class="text-primary mt-3">👕 Shirt Measurement</h5>
+
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <label id="lblShirtLength">Length</label>
+                            <input type="number" step="0.1" class="form-control" name="shirt_length" >
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblChest">Chest</label>
+                            <input type="number" step="0.1" class="form-control" name="chest">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblShoulder">Shoulder</label>
+                            <input type="number" step="0.1" class="form-control" name="shoulder">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblSleeve">Sleeve Length</label>
+                            <input type="number" step="0.1" class="form-control" name="sleeve_length">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblCollar">Collar</label>
+                            <input type="number" step="0.1" class="form-control" name="collar">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblShirtType">Shirt Type</label>
+                            <select class="form-control" name="shirt_type">
+                                <option value="Bushirt">Bushirt</option>
+                                <option value="Applecut">Applecut</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- PANT SECTION -->
+                    <h5 id="pantTitle" class="text-success mt-4">👖 Pant Measurement</h5>
+
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <label id="lblPantLength">Length</label>
+                            <input type="number" step="0.1" class="form-control" name="pant_length">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblWaist">Waist</label>
+                            <input type="number" step="0.1" class="form-control" name="waist">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblSit">Sit</label>
+                            <input type="number" step="0.1" class="form-control" name="sit">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblThigh">Thigh</label>
+                            <input type="number" step="0.1" class="form-control" name="thigh">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblKnee">Knee</label>
+                            <input type="number" step="0.1" class="form-control" name="knee">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label id="lblBottom">Bottom</label>
+                            <input type="number" step="0.1" class="form-control" name="bottom">
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <button id="saveBtn" class="btn btn-success w-100 mt-3">
+                        Save
+                    </button>
+
+                    <a href="/dashboard" id="backBtn"
+                       class="btn btn-secondary w-100 mt-2">
+                        Back
+                    </a>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
